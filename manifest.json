@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub : copier le lien titré",
+  "version": "1.1.0",
+  "description": "Ajoute après le titre d'une issue ou d'une pull request GitHub un bouton qui copie un lien vers la page, dont le texte est ce titre.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "github-copy-link@localhost",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

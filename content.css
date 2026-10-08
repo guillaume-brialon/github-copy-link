@@ -1,0 +1,40 @@
+button.gh-copy-title-link {
+  margin-left: 4px;
+}
+
+/* The container of an issue already spaces its buttons */
+.gap-1 > button.gh-copy-title-link {
+  margin-left: 0;
+}
+
+/* Only when the page had no GitHub icon button to borrow the style from */
+button.gh-copy-title-link:not([data-component]) {
+  display: inline-grid;
+  place-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  vertical-align: middle;
+  color: var(--fgColor-muted, #59636e);
+  background: transparent;
+  border: 0;
+  border-radius: var(--borderRadius-medium, 6px);
+  cursor: pointer;
+}
+
+button.gh-copy-title-link:not([data-component]):hover {
+  background: var(--control-transparent-bgColor-hover, rgba(129, 139, 152, 0.1));
+}
+
+button.gh-copy-title-link svg {
+  fill: currentColor;
+}
+
+/* Set on the icon: GitHub sets the color of a hovered button itself */
+button.gh-copy-title-link[data-state='copied'] svg {
+  fill: var(--fgColor-success, #1a7f37);
+}
+
+button.gh-copy-title-link[data-state='failed'] svg {
+  fill: var(--fgColor-danger, #d1242f);
+}
