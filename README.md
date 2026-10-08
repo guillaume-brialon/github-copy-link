@@ -1,8 +1,9 @@
 # GitHub : copier le lien titré
 
-Extension Firefox qui ajoute, après le titre d'une issue ou d'une pull request GitHub, un bouton qui copie un lien vers la page, dont le texte est ce titre.
+Extension Firefox qui ajoute, après le titre d'une Issue ou d'une Pull Request GitHub, un bouton qui copie un lien vers la page, dont le texte est ce titre.
 
-Collé dans une messagerie, un courriel ou un document, le résultat est un lien cliquable qui affiche le titre plutôt que l'adresse. Collé dans un champ de texte brut, c'est le même lien en markdown : `[titre](adresse)`.
+- Collé dans une messagerie, un courriel ou un document, le résultat est un lien cliquable qui affiche le titre plutôt que l'adresse.
+- Collé dans un champ de texte brut, c'est le même lien en markdown : `[titre](adresse)`.
 
 ## Installation
 
@@ -17,8 +18,8 @@ Si Firefox enregistre le fichier au lieu de l'installer, ouvrez `about:addons`, 
 
 Le bouton, une icône de lien, apparaît après le numéro et le bouton d'édition du titre :
 
-- sur la page d'une issue ;
-- sur la page d'une pull request ;
+- sur la page d'une issue,
+- sur la page d'une pull request,
 - dans le panneau latéral d'une issue ouverte depuis un projet.
 
 Un clic copie le lien, et l'icône devient une coche verte pendant une seconde et demie. L'adresse copiée est celle de l'issue ou de la pull request elle-même, sans onglet (`/files`, `/commits`), paramètre ni ancre.
