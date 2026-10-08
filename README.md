@@ -14,6 +14,8 @@ L'extension demande Firefox 140 ou une version ultérieure.
 
 Si Firefox enregistre le fichier au lieu de l'installer, ouvrez `about:addons`, cliquez sur la roue dentée, puis sur « Installer un module depuis un fichier… ».
 
+À partir de la version 1.1.1, Firefox installe ensuite les nouvelles versions de lui-même. Une version 1.1.0 ne se met pas à jour seule : installez une version plus récente par-dessus.
+
 ## Utilisation
 
 Le bouton, une icône de lien, apparaît après le numéro et le bouton d'édition du titre :
@@ -34,6 +36,8 @@ L'extension tient en trois fichiers, sans étape de build :
 - `content.js` insère le bouton et copie le lien ;
 - `content.css` ajuste l'espacement du bouton et les couleurs de l'icône.
 
+`updates.json` n'est pas dans l'extension : c'est la liste des versions publiées, que Firefox lit sur ce dépôt pour proposer les mises à jour.
+
 Pour essayer une modification, ouvrez `about:debugging#/runtime/this-firefox`, cliquez sur « Charger un module complémentaire temporaire… » et choisissez `manifest.json`. Après chaque changement, cliquez sur « Actualiser » sous l'extension, puis rechargez la page GitHub.
 
 Le bouton et son infobulle reprennent les classes des boutons icônes de GitHub, lues sur la page. Si GitHub les renomme, le bouton retombe sur un style propre à l'extension et sur l'infobulle du navigateur.
@@ -51,6 +55,9 @@ Firefox n'installe durablement qu'une extension signée par Mozilla.
 
 3. Soumettez l'archive sur [addons.mozilla.org](https://addons.mozilla.org/developers/) en distribution « On your own », puis téléchargez le `.xpi` signé.
 4. Joignez le `.xpi` à une nouvelle release de ce dépôt.
+5. Ajoutez la version et l'adresse de son `.xpi` à `updates.json`, puis poussez sur `main` : c'est ce qui déclenche la mise à jour chez ceux qui ont installé l'extension.
+
+N'ajoutez une version à `updates.json` qu'une fois son `.xpi` en ligne, sans quoi Firefox échoue à la télécharger.
 
 ## Licence
 
