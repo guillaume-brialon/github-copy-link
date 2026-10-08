@@ -51,6 +51,8 @@ Firefox n'installe durablement qu'une extension signée par Mozilla.
 3. Soumettez l'archive sur [addons.mozilla.org](https://addons.mozilla.org/developers/) en distribution « On your own », puis téléchargez le `.xpi` signé.
 4. Joignez le `.xpi` à une nouvelle release de ce dépôt.
 
-## Licences tierces
+## Licence
+
+L'extension est distribuée sous [licence MIT](LICENSE).
 
 Les icônes viennent d'[Octicons](https://github.com/primer/octicons), © GitHub, Inc., sous [licence MIT](https://github.com/primer/octicons/blob/main/LICENSE).
