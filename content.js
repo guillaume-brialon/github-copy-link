@@ -4,8 +4,11 @@ const TOOLTIP_CLASS = 'gh-copy-title-link-tooltip';
 const TOOLTIP_OFFSET = 4;
 const PAGE_PATH_PATTERN = /^\/[^/]+\/[^/]+\/(?:issues|pull)\/\d+/;
 const NUMBER_PREFIX_PATTERN = /^#\d+/;
-const TITLE_CLASS = 'markdown-title';
-const TITLE_SELECTOR = `h1 .${TITLE_CLASS}`;
+// The class of a title: fixed on an issue, generated on a pull request
+const TITLE_CLASS_SELECTOR = '.markdown-title, [class*="markdownTitle"]';
+const TITLE_SELECTOR = `h1 :is(${TITLE_CLASS_SELECTOR})`;
+// The element of a pull request that holds the heading and the actions on the title
+const TITLE_ROW_SELECTOR = '[class*="titleWithAction"]';
 // GitHub elements whose generated class names are borrowed, so that the button and its tooltip look like theirs
 const ICON_BUTTON_SELECTOR = 'button[data-component="IconButton"][data-variant="invisible"]';
 const ICON_BUTTON_CLASS_PREFIX = 'prc-Button-';
@@ -33,10 +36,10 @@ const escapeHtml = (text) =>
 const getPageLink = (heading) => {
   // A side panel names its issue by the link on its number, a page by its own address
   const numberLink = [...heading.querySelectorAll('a[href]')].find(
-    (link) => !link.closest(`.${TITLE_CLASS}`) && PAGE_PATH_PATTERN.test(link.pathname),
+    (link) => !link.closest(TITLE_CLASS_SELECTOR) && PAGE_PATH_PATTERN.test(link.pathname),
   );
   const pagePath = (numberLink?.pathname ?? location.pathname).match(PAGE_PATH_PATTERN)?.[0];
-  const title = heading.querySelector(`.${TITLE_CLASS}`)?.textContent.replace(/\s+/g, ' ').trim();
+  const title = heading.querySelector(TITLE_CLASS_SELECTOR)?.textContent.replace(/\s+/g, ' ').trim();
   if (!pagePath || !title) {
     return undefined;
   }
@@ -115,8 +118,11 @@ const hideTooltip = (tooltip) => {
 
 const handleClick = async (event) => {
   const button = event.currentTarget;
-  // The button sits inside the heading on an issue, in the element that follows it on a pull request
-  const heading = button.closest('h1') ?? button.parentElement.previousElementSibling;
+  // The button sits inside the heading on an issue, next to it on a pull request
+  const heading =
+    button.closest('h1') ??
+    button.parentElement.querySelector(':scope > h1') ??
+    button.parentElement.previousElementSibling;
   const pageLink = heading && getPageLink(heading);
   if (!pageLink) {
     return;
@@ -163,12 +169,15 @@ const createTooltip = (button) => {
   return tooltip;
 };
 
-// Returns the element that holds the number and the edit button: next to the heading on a pull request, inside it on an issue.
+// Returns the element that holds the number and the edit button: inside the heading on an issue, next to it on an
+// older pull request, or the row of the heading on a pull request that no longer shows the number.
 const getButtonContainer = (heading) =>
   [heading.nextElementSibling, heading.lastElementChild].find(
     (element) =>
-      element && !element.classList.contains(TITLE_CLASS) && NUMBER_PREFIX_PATTERN.test(element.textContent.trim()),
-  ) ?? heading;
+      element && !element.matches(TITLE_CLASS_SELECTOR) && NUMBER_PREFIX_PATTERN.test(element.textContent.trim()),
+  ) ??
+  heading.parentElement?.closest(TITLE_ROW_SELECTOR) ??
+  heading;
 
 // Returns whether React is done with the heading: a node added before that makes the hydration fail.
 const isHydrated = (heading) => {

@@ -7,6 +7,12 @@ button.gh-copy-title-link {
   margin-left: 0;
 }
 
+/* The row of the title of a pull request may lay its children out on their baseline */
+[class*='titleWithAction'] > button.gh-copy-title-link {
+  flex-shrink: 0;
+  align-self: center;
+}
+
 /* Only when the page had no GitHub icon button to borrow the style from */
 button.gh-copy-title-link:not([data-component]) {
   display: inline-grid;

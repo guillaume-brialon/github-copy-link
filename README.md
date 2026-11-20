@@ -18,7 +18,7 @@ Si Firefox enregistre le fichier au lieu de l'installer, ouvrez `about:addons`, 
 
 ## Utilisation
 
-Le bouton, une icône de lien, apparaît après le numéro et le bouton d'édition du titre :
+Le bouton, une icône de lien, apparaît après le titre, et après le numéro et le bouton d'édition quand la page les affiche :
 
 - sur la page d'une issue,
 - sur la page d'une pull request,
